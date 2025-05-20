@@ -3,9 +3,40 @@
 ### REGISTER NUMBER : 212222060246
 
 ### AIM: 
-To write a program to train the classifier for -----------------.
+To perform object detection on an image (e.g., cat.jpg) using OpenCV and a pre-trained MobileNet SSD model trained on the 
+COCO dataset, and to display the detected object(s) with bounding boxes and labels.
 
-###  Algorithm:
+### 🧠 **Algorithm:**
+
+1. **Import Required Libraries**
+   Import OpenCV and Colab-specific display tools.
+
+2. **Read and Display the Image**
+   Load an image using `cv2.imread()` and display using `cv2_imshow()`.
+
+3. **Load Class Names**
+   Load object class labels from the `coco.names` file into a list called `classNames`.
+
+4. **Load Pre-trained Model**
+
+   * Use `cv2.dnn_DetectionModel` to load the model configuration (`.pbtxt`) and weights (`.pb`).
+   * Set input parameters like size, scale, mean, and color swapping.
+
+5. **Detect Objects**
+
+   * Use `net.detect()` to detect objects in the image with a confidence threshold of 0.7.
+   * This returns class IDs, confidence scores, and bounding boxes.
+
+6. **Draw Bounding Boxes and Labels**
+
+   * For each detected object:
+
+     * Draw a rectangle around it.
+     * Display its class name using `cv2.putText()`.
+
+7. **Show the Final Image**
+
+   * Display the image with the detection results using `cv2_imshow()`.
 
 ### Program:
 ~~~
@@ -57,8 +88,11 @@ cv2_imshow(img)
 
 
 ### Output:
+![CAT output](https://github.com/user-attachments/assets/dc974a7b-b57f-4fdd-8f54-9fd2aa549500)
 
+### 📸 **Result:**
 
-
-### Result:
-Thus the system was trained successfully and the prediction was carried out.
+* The image `cat.jpg` is analyzed.
+* The model detects a **cat** (class ID 17) with a high confidence.
+* A **green rectangle** is drawn around the cat.
+* The label **"cat"** is displayed near the detected region.
