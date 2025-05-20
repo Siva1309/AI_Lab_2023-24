@@ -7,7 +7,7 @@ To perform object detection on an image (e.g., cat.jpg) using OpenCV and a pre-t
 COCO dataset, and to display the detected object(s) with bounding boxes and labels.
 
 ### 🧠 **Algorithm:**
-
+ 
 1. **Import Required Libraries**
    Import OpenCV and Colab-specific display tools.
 
