@@ -1,4 +1,4 @@
-# Ex.No: 10 Learning – Use Supervised Learning  
+# Ex.No: 13 Learning – Use Supervised Learning  
                                                                             
 ### REGISTER NUMBER : 212222060246
 
@@ -9,11 +9,55 @@ To write a program to train the classifier for -----------------.
 
 ### Program:
 ~~~
+import cv2
+from google.colab.patches import cv2_imshow
+     
 
+img = cv2.imread('cat.jpg')
+     
+
+cv2_imshow(img)
+
+classNames = []
+classFile = 'coco.names'
+with open(classFile, 'rt') as f:
+  classNames = f.read().rstrip('\n').split('\n') 
+
+print(classNames)
+     
+['person', 'bicycle', 'car', 'motorbike', 'aeroplane', 'bus', 'train', 'truck', 'boat', 'traffic light', 'fire hydrant', 'N/A', 'stop sign', 'parking meter', 'bench', 'bird', 'cat', 'dog', 'horse', 'sheep', 'cow', 'elephant', 'bear', 'zebra', 'giraffe', 'backpack', 'umbrella', 'handbag', 'tie', 'suitcase', 'frisbee', 'skis', 'snowboard', 'sports ball', 'kite', 'baseball bat', 'baseball glove', 'skateboard', 'surfboard', 'tennis racket', 'bottle', 'wine glass', 'cup', 'fork', 'knife', 'spoon', 'bowl', 'banana', 'apple', 'sandwich', 'orange', 'broccoli', 'carrot', 'hot dog', 'pizza', 'donut', 'cake', 'chair', 'sofa', 'pottedplant', 'bed', 'diningtable', 'toilet', 'tvmonitor', 'laptop', 'mouse', 'remote', 'keyboard', 'cell phone', 'microwave', 'oven', 'toaster', 'sink', 'refrigerator', 'book', 'clock', 'vase', 'scissors', 'teddy bear', 'hair drier', 'toothbrush']
+
+configPath = 'ssd_mobilenet_v3_large_coco_2020_01_14.pbtxt'
+weightsPath = 'frozen_inference_graph.pb'
+     
+
+net = cv2.dnn_DetectionModel(weightsPath, configPath)
+net.setInputSize(320, 320)
+net.setInputScale(1.0/127.5)
+net.setInputMean((127.5, 127.5, 127.5))
+net.setInputSwapRB(True)
+     
+< cv2.dnn.Model 0x7940a4447950>
+
+classIds, confs, bbox = net.detect(img, confThreshold=0.7)
+     
+
+print(classIds, bbox)
+     
+[17] [[101  67 239 322]]
+
+for classId, confidence, box in zip(classIds.flatten(), confs.flatten(), bbox):
+    x, y, w, h = box
+    cv2.rectangle(img, (x, y), (x+w, y+h), color=(0,255,0), thickness=3)
+    cv2.putText(img, classNames[classId-1], (x+10, y+30), cv2.FONT_HERSHEY_COMPLEX, 2, (0, 255, 0), 2)
+     
+
+cv2_imshow(img)
 ~~~
 
 
 ### Output:
+
 
 
 ### Result:
